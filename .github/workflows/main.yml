@@ -29,22 +29,19 @@ jobs:
           pip3 install jsmin
           python3 -c "import jsmin, json; f = open('devcontainer.json', 'r'); data = json.loads(jsmin.jsmin(f.read())); o = {}; o['build']=data['build']; o['features']=data.get('features', []); o['remoteEnv']=data['remoteEnv']; f.close(); f = open('devcontainer.json', 'w'); f.write(json.dumps(o, indent=4)); f.close()"
 
-      - name: Build (${{ github.ref_name}})
-        if: ${{ github.ref = 'refs/heads/develop' }}
+      - name: Build
         run: |
           export TAG=amd64
           export VCS_REF=$(git rev-parse HEAD)
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder . --config devcontainer.json --image-name ozipoetra/codespace:${{ github.sha }} --image-name ozipoetra/codespace:${{ github.ref_name }}
 
-      - name: Push (${{ github.ref_name }}) to GitHub Packages
-        if: ${{ github.ref = 'refs/heads/develop' }}
+      - name: Push to GitHub Packages
         run: |
           docker tag ghcr.io/ozipoetra/codespace:${{ github.ref_name }}
           docker push ghcr.io/ozipoetra/codespace:${{ github.ref_name }}
           
       - name: Tag main as latest
-        if: ${{ github.ref == 'refs/heads/develop' }}
         uses: actions/github-script@v7
         with:
           github-token: ${{ github.token }}
