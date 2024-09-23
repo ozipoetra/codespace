@@ -38,7 +38,7 @@ jobs:
 
       - name: Push to GitHub Packages
         run: |
-          docker tag ozipoetra/codespace:${{ github.ref_name }} ozipoetra/codespace:${{ github.ref_name }}
+          #docker tag ozipoetra/codespace:${{ github.ref_name }} ozipoetra/codespace:${{ github.ref_name }}
           docker push ghcr.io/ozipoetra/codespace:${{ github.ref_name }}
           
       - name: Tag main as latest
