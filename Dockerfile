@@ -158,10 +158,12 @@ RUN chmod a+rx /opt/cs50/bin/* && \
     chmod a+rx /opt/cs50/phpliteadmin/bin/phpliteadmin && \
     ln --symbolic /opt/cs50/phpliteadmin/bin/phpliteadmin /opt/cs50/bin/phpliteadmin
 
+# Copy entry point 
+COPY ./Start.sh /root
 
 # Enforce login shell
 RUN echo "\nshopt -q login_shell || exec bash --login -i" >> /etc/bash.bashrc
-
+ENTRYPOINT [ "/root/Start.sh" ]
 
 # Set user
 USER ubuntu
