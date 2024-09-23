@@ -246,5 +246,10 @@
         "LANG": "${localEnv:CS50_LANG}",
         "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
         "TZ": "${localEnv:CS50_TZ}"
+    },
+    "features": {
+	    "ghcr.io/devcontainers/features/sshd:1": {
+		"version": "latest"
+	  }
     }
 }
